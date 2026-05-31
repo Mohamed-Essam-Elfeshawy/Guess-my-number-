@@ -5,37 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="assets/css/playguss.css" />
-    <title>Guess My Number! - Cyberpunk Edition</title>
+    <title>Guess My Number!</title>
   </head>
   <body>
-    <div class="grid-background"></div>
-    
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+
     <header>
-      <div class="corner-decoration top-left"></div>
-      <div class="corner-decoration top-right"></div>
-      
+      <p class="tag">NEURAL INTERFACE v2.0</p>
       <h1>GUESS MY NUMBER</h1>
-      <p class="between">[RANGE: 1 - 20]</p>
-      <button class="btn btn-again">⟲ RESET</button>
+      <p class="between">[ RANGE: 1 — 20 ]</p>
+      <button class="btn again">↺ RESTART</button>
       <div class="number">?</div>
     </header>
 
     <main>
       <section class="left">
-        <input type="number" class="guess" placeholder="Enter number..." />
-        <button class="btn btn-check">▶ CHECK</button>
+        <input type="number" class="guess" placeholder="00" min="1" max="20" />
+        <button class="btn check">CHECK</button>
       </section>
       <section class="right">
-        <p class="message">START GUESSING...</p>
-        <p class="label-score">💯 SCORE: <span class="score">20</span></p>
-        <p class="label-highscore">
-          🥇 HIGHSCORE: <span class="highscore">0</span>
-        </p>
+        <p class="message">ENTER YOUR GUESS</p>
+        <p class="label-score">SCORE: <span class="score">20</span></p>
+        <p class="label-highscore">HIGHSCORE: <span class="highscore">00</span></p>
       </section>
     </main>
-
-    <div class="corner-decoration bottom-left"></div>
-    <div class="corner-decoration bottom-right"></div>
 
     <script src="assets/js/playguss.js"></script>
   </body>
