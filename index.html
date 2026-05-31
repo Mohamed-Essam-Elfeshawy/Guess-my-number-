@@ -13,23 +13,59 @@
     <div class="corner bl"></div>
     <div class="corner br"></div>
 
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>⚙️ GAME SETTINGS</h2>
+        
+        <div class="setting-group">
+          <label for="difficulty">DIFFICULTY:</label>
+          <select id="difficulty">
+            <option value="easy">EASY (1-50, 50 attempts)</option>
+            <option value="normal" selected>NORMAL (1-20, 20 attempts)</option>
+            <option value="hard">HARD (1-100, 15 attempts)</option>
+            <option value="insane">INSANE (1-1000, 10 attempts)</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <label>
+            <input type="checkbox" id="soundToggle" checked />
+            SOUND EFFECTS
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label>
+            <input type="checkbox" id="animationToggle" checked />
+            ANIMATIONS
+          </label>
+        </div>
+
+        <button class="btn modal-btn" id="applySettings">APPLY SETTINGS</button>
+      </div>
+    </div>
+
     <header>
+      <button class="btn settings-btn" id="settingsBtn">⚙️ SETTINGS</button>
       <p class="tag">NEURAL INTERFACE v2.0</p>
       <h1>GUESS MY NUMBER</h1>
-      <p class="between">[ RANGE: 1 — 20 ]</p>
+      <p class="between" id="rangeDisplay">[ RANGE: 1 — 20 ]</p>
       <button class="btn again">↺ RESTART</button>
       <div class="number">?</div>
     </header>
 
     <main>
       <section class="left">
-        <input type="number" class="guess" placeholder="00" min="1" max="20" />
+        <input type="number" class="guess" placeholder="00" />
         <button class="btn check">CHECK</button>
       </section>
       <section class="right">
         <p class="message">ENTER YOUR GUESS</p>
         <p class="label-score">SCORE: <span class="score">20</span></p>
         <p class="label-highscore">HIGHSCORE: <span class="highscore">00</span></p>
+        <p class="label-attempts" id="attemptsDisplay" style="margin-top: 1.8rem;">ATTEMPTS: <span id="attempts">20</span></p>
       </section>
     </main>
 
