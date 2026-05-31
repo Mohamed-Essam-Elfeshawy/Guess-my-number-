@@ -1,44 +1,107 @@
-const check = document.querySelector(".check");
+const check = document.querySelector(".btn-check");
 const message = document.querySelector(".message");
-const again = document.querySelector(".again");
-const secretnumber = Math.trunc(Math.random() * 20) + 1;
-const allmMssage = function (message2) {
-  document.querySelector(".message").textContent = message2;
-};
+const again = document.querySelector(".btn-again");
+const guessInput = document.querySelector(".guess");
+const scoreDisplay = document.querySelector(".score");
+const highscoreDisplay = document.querySelector(".highscore");
+const numberDisplay = document.querySelector(".number");
+const body = document.body;
+
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
-let highscore = 0;
+let highscore = parseInt(localStorage.getItem("highscore")) || 0;
 
-check.addEventListener("click", () => {
-  const testPlay = Number(document.querySelector(".guess").value);
+// Display initial highscore
+highscoreDisplay.textContent = highscore;
 
-  if (!testPlay) {
-    allmMssage(`no Number`);
-  } else if (testPlay === secretnumber) {
-    allmMssage(`corret Number`);
-    document.querySelector(".number").textContent = secretnumber;
-    document.querySelector("body").style.backgroundColor = "green";
-    document.querySelector(".number").style.width = "40rem";
+const setMessage = function (msg, type = "default") {
+  message.textContent = msg;
+  message.classList.remove("correct", "wrong");
+  if (type !== "default") {
+    message.classList.add(type);
+  }
+};
 
+const updateScore = function () {
+  scoreDisplay.textContent = score;
+  scoreDisplay.classList.remove("warning", "danger");
+  
+  if (score < 5) {
+    scoreDisplay.classList.add("danger");
+  } else if (score < 10) {
+    scoreDisplay.classList.add("warning");
+  }
+};
+
+const playGame = function () {
+  const guess = Number(guessInput.value);
+
+  if (!guess || guess < 1 || guess > 20) {
+    setMessage("⚠️ ENTER A NUMBER BETWEEN 1-20!", "wrong");
+    return;
+  }
+
+  if (guess === secretNumber) {
+    // Correct answer
+    setMessage("🎉 CORRECT NUMBER!", "correct");
+    numberDisplay.textContent = secretNumber;
+    numberDisplay.classList.add("reveal");
+    
     if (score > highscore) {
       highscore = score;
-      document.querySelector(".highscore").textContent = highscore;
+      highscoreDisplay.textContent = highscore;
+      localStorage.setItem("highscore", highscore);
     }
-  } else if (testPlay !== secretnumber) {
-    allmMssage(testPlay > secretnumber ? `hight Number🧨` : `low Number🧨`);
-    score--;
-    document.querySelector(".score").textContent = score;
-    if (score < 1) {
-      document.querySelector(".score").textContent = 0;
-      message.textContent = `game Over`;
+    
+    check.disabled = true;
+    guessInput.disabled = true;
+    body.classList.add("game-won");
+  } else if (guess !== secretNumber) {
+    // Wrong answer
+    if (score > 1) {
+      setMessage(
+        guess > secretNumber ? "📈 TOO HIGH!" : "📉 TOO LOW!",
+        "wrong"
+      );
+      guessInput.classList.add("shake");
+      setTimeout(() => guessInput.classList.remove("shake"), 400);
+      score--;
+      updateScore();
+    } else {
+      setMessage("💀 GAME OVER! You lost!", "wrong");
+      body.classList.add("game-over");
+      check.disabled = true;
+      guessInput.disabled = true;
+      score = 0;
+      updateScore();
     }
+  }
+
+  guessInput.value = "";
+};
+
+// Event listeners
+check.addEventListener("click", playGame);
+
+guessInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    playGame();
   }
 });
 
 again.addEventListener("click", () => {
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
   score = 20;
-  document.querySelector(".number").textContent = `?`;
-  document.querySelector("body").style.backgroundColor = `#222`;
-  message.textContent = `Start guessing...`;
-  document.querySelector(".score").textContent = score;
-  document.querySelector(".guess").value = " ";
+  updateScore();
+  
+  setMessage("START GUESSING...");
+  numberDisplay.textContent = "?";
+  numberDisplay.classList.remove("reveal");
+  guessInput.value = "";
+  guessInput.disabled = false;
+  check.disabled = false;
+  body.classList.remove("game-won", "game-over");
 });
+
+// Initialize display
+updateScore();
