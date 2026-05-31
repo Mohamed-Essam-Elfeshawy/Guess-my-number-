@@ -114,6 +114,23 @@ h1 {
   left: 2.5rem;
 }
 
+.settings-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2.5rem;
+  border-color: rgba(255, 200, 0, 0.4);
+  color: rgba(255, 200, 0, 0.6);
+  font-size: 1.1rem;
+  padding: 0.9rem 1.6rem;
+}
+
+.settings-btn:hover {
+  background-color: rgba(255, 200, 0, 0.08);
+  border-color: #fc0;
+  color: #fc0;
+  box-shadow: 0 0 20px rgba(255, 200, 0, 0.25);
+}
+
 .number {
   font-size: 5.5rem;
   font-weight: 900;
@@ -198,6 +215,110 @@ h1 {
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
 }
 
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: rgba(3, 10, 10, 0.95);
+  margin: 10% auto;
+  padding: 3rem;
+  border: 2px solid #0ff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content h2 {
+  color: #0ff;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+.close {
+  color: #0ff;
+  float: right;
+  font-size: 2.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close:hover {
+  color: #f0f;
+}
+
+.setting-group {
+  margin-bottom: 2rem;
+  color: #aaa;
+}
+
+.setting-group label {
+  display: block;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.1em;
+  font-size: 1.2rem;
+}
+
+.setting-group select {
+  width: 100%;
+  padding: 1rem;
+  background-color: rgba(0, 255, 255, 0.04);
+  border: 2px solid #0ff;
+  color: #0ff;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 1.1rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.setting-group select:focus {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.setting-group select option {
+  background-color: #030a0a;
+  color: #0ff;
+}
+
+.setting-group input[type="checkbox"] {
+  width: 1.8rem;
+  height: 1.8rem;
+  cursor: pointer;
+  margin-right: 1rem;
+  accent-color: #0ff;
+}
+
+.modal-btn {
+  width: 100%;
+  margin-top: 2rem;
+  background-color: rgba(0, 255, 0, 0.1);
+  border-color: #0f0;
+  color: #0f0;
+}
+
+.modal-btn:hover {
+  background-color: rgba(0, 255, 0, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+}
+
 /* RIGHT SECTION */
 .message {
   margin-bottom: 4rem;
@@ -211,6 +332,12 @@ h1 {
 
 .label-score {
   margin-bottom: 1.8rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.4);
+}
+
+.label-attempts {
   font-size: 1.3rem;
   letter-spacing: 0.2em;
   color: rgba(255,255,255,0.4);
@@ -254,7 +381,7 @@ body.lost .number {
 .score.warn { color: #ff0; text-shadow: 0 0 10px #ff0; }
 .score.danger { color: #f55; text-shadow: 0 0 10px #f55; }
 
-.message.won { color: #0f0; text-shadow: 0 0 10px #0f040; }
+.message.won { color: #0f0; text-shadow: 0 0 10px #0f0; }
 .message.lost { color: #f33; text-shadow: 0 0 10px #f33; }
 .message.high { color: #f0f; text-shadow: 0 0 8px #f0f; }
 .message.low { color: #0ff; text-shadow: 0 0 8px #0ff; }
@@ -288,4 +415,8 @@ body.lost .number {
 
 .number.reveal {
   animation: reveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.number.no-anim {
+  animation: none !important;
 }
